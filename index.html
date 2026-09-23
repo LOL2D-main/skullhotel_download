@@ -100,7 +100,7 @@
   <header class="site-header">
     <div class="header-container">
       <a href="#home" class="site-brand" title="Skull Hotel">
-        <img src="assets/images/logo.png" alt="Skull Hotel Logo" class="brand-logo-img" />
+        <img src="assets/images/logo.png" alt="Skull Hotel Logo" class="brand-logo-img" onerror="if(!this.dataset.fallback){this.dataset.fallback=1;this.src=FALLBACK_LOGO;}" />
         <div class="brand-title-wrap">
           <span class="brand-title-text">SKULL HOTEL</span>
           <span class="brand-subtitle-text">Trang Tải Game Chính Thức</span>
@@ -189,16 +189,17 @@
             <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
           </button>
 
-          <!-- 1. Video Player: Trailer Chính Thức (dash_av1.mp4) -->
+          <!-- 1. Video Player: Trailer Chính Thức (trailer_web.mp4 & dash_av1.mp4) -->
           <video 
             id="mainTrailerVideo" 
             class="main-video-player active" 
-            src="assets/images/dash_av1.mp4" 
-            poster="assets/images/main.jpg" 
+            poster="assets/images/banner1.jpg" 
             playsinline 
             preload="metadata"
             aria-label="Skull Hotel Official Gameplay Trailer"
           >
+            <source src="assets/images/trailer_web.mp4" type="video/mp4" />
+            <source src="assets/images/dash_av1.mp4" type="video/mp4" />
             Trình duyệt của bạn không hỗ trợ thẻ video HTML5.
           </video>
 
@@ -291,7 +292,7 @@
                 </svg>
               </div>
             </div>
-            <img src="assets/images/main.jpg" alt="Trailer Thumbnail" />
+            <img src="assets/images/banner1.jpg" alt="Trailer Thumbnail" />
           </button>
 
           <!-- Item 1: Banner 1 -->
@@ -427,7 +428,9 @@
         <img 
           src="assets/images/main.jpg" 
           alt="Skull Hotel Official Poster" 
-          class="game-main-poster" 
+          class="game-main-poster"
+          id="gameMainPoster"
+          onerror="if(!this.dataset.fallback){this.dataset.fallback=1;this.src='assets/images/capsule.png';}"
         />
 
         <p class="game-short-summary">
@@ -640,7 +643,7 @@
               <span class="deco-corner-accent deco-corner-tr"></span>
               <span class="deco-corner-accent deco-corner-bl"></span>
               <span class="deco-corner-accent deco-corner-br"></span>
-              <video src="assets/images/monster.webm" autoplay loop muted playsinline aria-label="Nguy hiểm khó lường - Quái vật rình rập"></video>
+              <video src="assets/images/monster.webm" poster="assets/images/banner2.jpg" autoplay loop muted playsinline aria-label="Nguy hiểm khó lường - Quái vật rình rập"></video>
             </div>
           </div>
 
@@ -655,7 +658,7 @@
               <span class="deco-corner-accent deco-corner-tr"></span>
               <span class="deco-corner-accent deco-corner-bl"></span>
               <span class="deco-corner-accent deco-corner-br"></span>
-              <video src="assets/images/jumpscare.webm" autoplay loop muted playsinline aria-label="Dễ chơi, khó thành thạo - Phân cảnh rùng rợn"></video>
+              <video src="assets/images/jumpscare.webm" poster="assets/images/banner6.jpg" autoplay loop muted playsinline aria-label="Dễ chơi, khó thành thạo - Phân cảnh rùng rợn"></video>
             </div>
           </div>
 
@@ -968,7 +971,7 @@
     <div class="footer-content-container">
       <div class="footer-top-brand">
         <div style="display:flex; align-items:center; gap:10px;">
-          <img src="assets/images/logo.png" alt="Skull Hotel Logo" class="footer-logo-img" />
+          <img src="assets/images/logo.png" alt="Skull Hotel Logo" class="footer-logo-img" onerror="if(!this.dataset.fallback){this.dataset.fallback=1;this.src=FALLBACK_LOGO;}" />
           <span class="footer-brand-title">SKULL HOTEL</span>
         </div>
         <div class="footer-tagline">
