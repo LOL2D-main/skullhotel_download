@@ -1,0 +1,22 @@
+========================================================================
+HƯỚNG DẪN DÀNH CHO NHÀ PHÁT TRIỂN (NHẬT THIỆN / JAMES HALL)
+========================================================================
+
+Trang web tải game phong cách Steam Store của bạn đã sẵn sàng tại thư mục này!
+
+CÁCH THÊM FILE GAME .EXE:
+1. Sau khi bạn xuất bản (build / export) game Skull Hotel ra file thực thi (.exe),
+   hãy đặt file đó vào ngay thư mục này với tên:
+   
+   SkullHotel.exe
+
+2. Khi người chơi truy cập trang web (mở index.html) và nhấn nút màu xanh lá
+   "Tải xuống Skull Hotel (.exe)", trình duyệt sẽ tự động tải file SkullHotel.exe
+   này về máy của người chơi.
+
+3. Bạn cũng có thể mở trực tiếp file `index.html` bằng bất kỳ trình duyệt nào
+   (Chrome, Edge, Firefox, Cốc Cốc,...) hoặc đưa toàn bộ thư mục này lên Hosting
+   (GitHub Pages, Vercel, Netlify,...) để chia sẻ cho mọi người cùng tải!
+
+Chúc game Skull Hotel của bạn thành công rực rỡ!
+========================================================================
