@@ -562,10 +562,47 @@ function initDownloadFlow() {
   downloadBtns.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
-      triggerGameDownload();
-      if (modal) modal.classList.add("active");
+      
+      const donateModal = document.getElementById("donateModal");
+      if (donateModal) {
+        donateModal.classList.add("active");
+      } else {
+        // Fallback
+        triggerGameDownload();
+        if (modal) modal.classList.add("active");
+      }
     });
   });
+
+  // Handle Donate Modal
+  const donateModal = document.getElementById("donateModal");
+  const skipDonateBtn = document.getElementById("skipDonateBtn");
+  const confirmDonateBtn = document.getElementById("confirmDonateBtn");
+  const closeDonateBtn = document.getElementById("closeDonateModal");
+
+  if (closeDonateBtn && donateModal) {
+    closeDonateBtn.addEventListener("click", () => donateModal.classList.remove("active"));
+  }
+
+  if (donateModal) {
+    donateModal.addEventListener("click", (e) => {
+      if (e.target === donateModal) donateModal.classList.remove("active");
+    });
+  }
+
+  const proceedToDownload = () => {
+    if (donateModal) donateModal.classList.remove("active");
+    triggerGameDownload();
+    if (modal) modal.classList.add("active");
+  };
+
+  if (skipDonateBtn) {
+    skipDonateBtn.addEventListener("click", proceedToDownload);
+  }
+
+  if (confirmDonateBtn) {
+    confirmDonateBtn.addEventListener("click", proceedToDownload);
+  }
 
   if (closeBtn && modal) {
     closeBtn.addEventListener("click", () => modal.classList.remove("active"));
