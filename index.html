@@ -118,11 +118,11 @@
         </ul>
       </nav>
 
-      <a href="#downloadSection" class="nav-cta-btn btn-trigger-download" title="Tải xuống Skull Hotel .EXE">
+      <a href="#downloadSection" class="nav-cta-btn btn-trigger-download" title="Tải xuống Skull Hotel .ZIP">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
         </svg>
-        <span>Tải Game (.EXE)</span>
+        <span>Tải Game (.ZIP)</span>
       </a>
     </div>
   </header>
@@ -460,11 +460,11 @@
           </div>
           <div class="meta-info-item">
             <span class="meta-field-label">Định dạng file:</span>
-            <span class="meta-field-value">Bản .EXE độc lập (Portable)</span>
+            <span class="meta-field-value">Bản .ZIP giải nén (Portable)</span>
           </div>
           <div class="meta-info-item">
             <span class="meta-field-label">Dung lượng:</span>
-            <span class="meta-field-value">~150 MB</span>
+            <span class="meta-field-value">~968 MB</span>
           </div>
         </div>
 
@@ -497,21 +497,21 @@
         </h2>
         <div class="download-spec-pills">
           <span class="spec-pill">Phiên bản: v1.0.4</span>
-          <span class="spec-pill">Dung lượng: ~150 MB</span>
+          <span class="spec-pill">Dung lượng: ~968 MB</span>
           <span class="spec-pill">Windows 10/11 64-bit</span>
-          <span class="spec-pill">Bản .EXE chạy trực tiếp</span>
+          <span class="spec-pill">Bản .ZIP giải nén chơi ngay</span>
           <span class="spec-pill free">Hoàn toàn miễn phí</span>
         </div>
       </div>
 
       <div class="download-action-group">
-        <button class="main-download-button btn-trigger-download" aria-label="Tải xuống Skull Hotel file .EXE">
+        <button class="main-download-button btn-trigger-download" aria-label="Tải xuống Skull Hotel file .ZIP">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
           </svg>
-          <span>TẢI XUỐNG SKULL HOTEL (.EXE)</span>
+          <span>TẢI XUỐNG SKULL HOTEL (.ZIP)</span>
         </button>
-        <span class="download-subtext-note">Tải trực tiếp file SkullHotel.exe • Nhấp đúp là chơi ngay • Không cần cài đặt</span>
+        <span class="download-subtext-note">Tải trực tiếp file SkullHotel_v1.0.4.zip • Giải nén là chơi ngay • Không cần cài đặt</span>
       </div>
     </section>
 
@@ -1004,8 +1004,8 @@
         <div class="download-status-card">
           <div class="download-spinner-ring" aria-hidden="true"></div>
           <div class="status-text-details">
-            <h5>SkullHotel_v1.0.4.exe</h5>
-            <p>Dung lượng: ~150 MB • Windows 10/11 64-bit • Quá trình tải đang diễn ra...</p>
+            <h5 id="modalDownloadFileName">SkullHotel_v1.0.4.zip</h5>
+            <p id="modalDownloadFileDesc">Dung lượng: ~150 MB • Windows 10/11 64-bit • Quá trình tải đang diễn ra...</p>
           </div>
         </div>
 
@@ -1017,24 +1017,24 @@
           <div class="step-row-item">
             <div class="step-number-bubble">1</div>
             <div class="step-info-block">
-              <h6>Lưu file SkullHotel.exe</h6>
-              <p>Trình duyệt sẽ tự động tải và lưu file <code>SkullHotel.exe</code> vào thư mục Downloads của bạn.</p>
+              <h6>Tải & lưu file .ZIP</h6>
+              <p>Trình duyệt sẽ tự động tải file nén <code>SkullHotel_v1.0.4.zip</code> vào thư mục Downloads của bạn.</p>
             </div>
           </div>
 
           <div class="step-row-item">
             <div class="step-number-bubble">2</div>
             <div class="step-info-block">
-              <h6>Khởi chạy trực tiếp (Không cần cài đặt)</h6>
-              <p>Nhấp đúp chuột vào file <code>SkullHotel.exe</code> để mở game. Nếu Windows SmartScreen hiển thị thông báo, chọn <em>More info</em> &rarr; <em>Run anyway</em>.</p>
+              <h6>Giải nén thư mục game</h6>
+              <p>Nhấp chuột phải vào file <code>SkullHotel_v1.0.4.zip</code> &rarr; chọn <em>Extract All... (Giải nén tất cả)</em>.</p>
             </div>
           </div>
 
           <div class="step-row-item">
             <div class="step-number-bubble">3</div>
             <div class="step-info-block">
-              <h6>Đeo tai nghe & Bắt đầu trải nghiệm</h6>
-              <p>Tắt đèn phòng, cắm tai nghe stereo và bắt đầu ca dọn phòng kinh hoàng tại Skull Hotel!</p>
+              <h6>Mở SkullHotel.exe & Trải nghiệm</h6>
+              <p>Vào thư mục vừa giải nén, nhấp đúp file <code>SkullHotel.exe</code> để bắt đầu ca dọn phòng kinh hoàng!</p>
             </div>
           </div>
         </div>
@@ -1042,7 +1042,7 @@
 
       <div class="modal-footer-bar">
         <span style="font-size: 11px; color: var(--text-dim);">Nếu tải xuống không tự bắt đầu:</span>
-        <button class="retry-action-btn" id="retryDownloadBtn">Tải lại file .EXE</button>
+        <button class="retry-action-btn" id="retryDownloadBtn">Tải lại file .ZIP</button>
       </div>
     </div>
   </div>
