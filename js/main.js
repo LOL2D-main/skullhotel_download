@@ -7,6 +7,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   initAssetFallbacks();
   initMediaShowcase();
+  initFeatureLoopVideos();
   initDownloadFlow();
   initLightbox();
   initReviewVotes();
@@ -100,7 +101,8 @@ function initMediaShowcase() {
     title: btn.dataset.title || "Skull Hotel",
   }));
 
-  const totalScreenshots = mediaItems.filter((item) => item.type === "image").length; // 8
+  const totalScreenshots = mediaItems.filter((item) => item.type === "image").length;
+  const totalVideos = mediaItems.filter((item) => item.type === "video").length;
 
   function formatTime(seconds) {
     if (isNaN(seconds) || seconds < 0) return "0:00";
@@ -192,6 +194,16 @@ function initMediaShowcase() {
       if (trailerVideo) {
         trailerVideo.classList.add("active");
         trailerVideo.style.display = "block";
+
+        const currentSrcAttr = trailerVideo.getAttribute("src") || "";
+        if (!currentSrcAttr.endsWith(currentItem.src)) {
+          trailerVideo.src = currentItem.src;
+          trailerVideo.load();
+        }
+
+        if (userAction || currentIndex === 0) {
+          trailerVideo.play().catch(() => {});
+        }
       }
       if (videoControls) {
         videoControls.style.display = "flex";
@@ -203,10 +215,11 @@ function initMediaShowcase() {
       // Top indicator state
       if (iconVideo) iconVideo.classList.add("active");
       if (iconPhoto) iconPhoto.classList.remove("active");
-      if (counterText) counterText.textContent = `0/${totalScreenshots}`;
-
-      if (userAction && trailerVideo && trailerVideo.paused) {
-        trailerVideo.play().catch(() => { });
+      
+      const videoItems = mediaItems.filter((item) => item.type === "video");
+      const currentVideoIdx = videoItems.findIndex((item) => item.src === currentItem.src);
+      if (counterText) {
+        counterText.textContent = `${currentVideoIdx >= 0 ? currentVideoIdx + 1 : 1}/${totalVideos}`;
       }
     } else {
       // Switching to screenshot image
@@ -241,7 +254,11 @@ function initMediaShowcase() {
       // Top indicator state: 1/8 to 8/8
       if (iconVideo) iconVideo.classList.remove("active");
       if (iconPhoto) iconPhoto.classList.add("active");
-      if (counterText) counterText.textContent = `${currentIndex}/${totalScreenshots}`;
+      const imageItems = mediaItems.filter((item) => item.type === "image");
+      const currentImgIdx = imageItems.findIndex((item) => item.src === currentItem.src);
+      if (counterText) {
+        counterText.textContent = `${currentImgIdx >= 0 ? currentImgIdx + 1 : 1}/${totalScreenshots}`;
+      }
     }
 
     updateVideoTime();
@@ -677,3 +694,45 @@ function initSmoothScroll() {
     });
   });
 }
+
+// ===================================================================
+// 6. FEATURE LOOPING VIDEOS (MONSTER & JUMPSCARE AUTO-PLAY RESILIENCE)
+// ===================================================================
+function initFeatureLoopVideos() {
+  const loopVideos = document.querySelectorAll(".feature-loop-video, .deco-media-frame video");
+  loopVideos.forEach((vid) => {
+    vid.muted = true;
+    vid.defaultMuted = true;
+    vid.playsInline = true;
+    vid.setAttribute("muted", "");
+    vid.setAttribute("playsinline", "");
+
+    const startPlay = () => {
+      vid.play().catch(() => {});
+    };
+    startPlay();
+
+    // In case strict browser autoplay blocks before user gesture
+    const triggerEvents = ["click", "touchstart", "scroll", "mousemove"];
+    const onInteract = () => {
+      startPlay();
+      triggerEvents.forEach((ev) => window.removeEventListener(ev, onInteract));
+    };
+    triggerEvents.forEach((ev) => window.addEventListener(ev, onInteract, { once: true, passive: true }));
+
+    // IntersectionObserver to auto play when scrolled into view and pause when hidden
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            vid.play().catch(() => {});
+          } else {
+            vid.pause();
+          }
+        });
+      }, { threshold: 0.1 });
+      observer.observe(vid);
+    }
+  });
+}
+

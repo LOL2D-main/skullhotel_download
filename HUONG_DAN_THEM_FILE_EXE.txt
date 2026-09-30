@@ -1,22 +1,48 @@
 ========================================================================
-HƯỚNG DẪN DÀNH CHO NHÀ PHÁT TRIỂN (NHẬT THIỆN / JAMES HALL)
+HƯỚNG DẪN TẢI GAME FILE .ZIP / .EXE NẶNG CHO SKULL HOTEL (NHẬT THIỆN)
 ========================================================================
 
-Trang web tải game phong cách Steam Store của bạn đã sẵn sàng tại thư mục này!
+VÌ SAO KHÔNG NÊN ĐĂNG FILE ZIP / EXE NẶNG TRỰC TIẾP LÊN GITHUB REPO?
+- GitHub chỉ cho phép tải lên qua web tối đa 25 MB/file.
+- Đẩy qua Git push chỉ cho phép tối đa 100 MB/file.
+- Vercel cũng giới hạn băng thông và dung lượng tệp tĩnh.
 
-CÁCH THÊM FILE GAME .EXE:
-1. Sau khi bạn xuất bản (build / export) game Skull Hotel ra file thực thi (.exe),
-   hãy đặt file đó vào ngay thư mục này với tên:
-   
-   SkullHotel.exe
+Do đó, toàn bộ các game indie hiện nay đều lưu file nén game (.zip / .exe) ở dịch vụ lưu trữ chuyên dụng bên ngoài, sau đó dán link vào website.
 
-2. Khi người chơi truy cập trang web (mở index.html) và nhấn nút màu xanh lá
-   "Tải xuống Skull Hotel (.exe)", trình duyệt sẽ tự động tải file SkullHotel.exe
-   này về máy của người chơi.
+------------------------------------------------------------------------
+CÁCH 1 (KHUYÊN DÙNG NHẤT): DÙNG GITHUB RELEASES (MIỄN PHÍ ĐẾN 2 GB/FILE)
+------------------------------------------------------------------------
+GitHub có tính năng "Releases" cho phép đính kèm file game nặng đến 2 GB hoàn toàn miễn phí, tải cực nhanh:
 
-3. Bạn cũng có thể mở trực tiếp file `index.html` bằng bất kỳ trình duyệt nào
-   (Chrome, Edge, Firefox, Cốc Cốc,...) hoặc đưa toàn bộ thư mục này lên Hosting
-   (GitHub Pages, Vercel, Netlify,...) để chia sẻ cho mọi người cùng tải!
+Bước 1: Vào trang GitHub Repository dự án Skull Hotel của bạn trên trình duyệt.
+Bước 2: Ở cột bên phải trang, tìm mục "Releases" -> bấm vào "Create a new release" (hoặc "Draft a new release").
+Bước 3: 
+   - Choose a tag: gõ `v1.0.4` rồi bấm "Create new tag: v1.0.4".
+   - Release title: gõ `Skull Hotel v1.0.4 (Windows PC)`.
+Bước 4: Ở ô bên dưới có dòng chữ "Attach binaries by dropping them here or selecting them", bạn kéo thả file .ZIP của bạn vào ô này.
+Bước 5: Chờ thanh tải lên đạt 100% -> bấm nút "Publish release".
+Bước 6: Khi trang Release hiện ra, bạn nhấp chuột phải vào file .ZIP vừa tải lên -> chọn "Sao chép địa chỉ liên kết" (Copy link address). Link sẽ có dạng:
+   https://github.com/username/repo/releases/download/v1.0.4/SkullHotel_v1.0.4.zip
 
-Chúc game Skull Hotel của bạn thành công rực rỡ!
+Bước 7: Mở file `js/main.js`, tìm dòng 524 và dán link vào biến `url`:
+   const GAME_DOWNLOAD_CONFIG = {
+     url: "https://github.com/username/repo/releases/download/v1.0.4/SkullHotel_v1.0.4.zip",
+     fileName: "SkullHotel_v1.0.4.zip",
+     fileSize: "~150 MB", // Điền dung lượng thực tế của bạn
+   };
+
+------------------------------------------------------------------------
+CÁCH 2: DÙNG GOOGLE DRIVE (HOẶC MEDIAFIRE / MEGA)
+------------------------------------------------------------------------
+Bước 1: Tải file .ZIP lên Google Drive của bạn.
+Bước 2: Chuột phải vào file .ZIP trên Drive -> chọn "Chia sẻ" (Share) -> chuyển quyền truy cập chung thành "Bất kỳ ai có đường liên kết đều có thể xem" (Anyone with the link).
+Bước 3: Sao chép link chia sẻ của Google Drive.
+Bước 4: Mở file `js/main.js`, dán link đó vào:
+   const GAME_DOWNLOAD_CONFIG = {
+     url: "https://drive.google.com/file/d/MÃ_FILE_CỦA_BẠN/view?usp=sharing",
+     fileName: "SkullHotel_v1.0.4.zip",
+     fileSize: "~150 MB",
+   };
+
+Khi người chơi bấm "Tải Game (.ZIP)", hệ thống sẽ tự động mở trang tải của Google Drive / tải file trực tiếp từ GitHub Releases và hiển thị bảng hướng dẫn giải nén chuyên nghiệp!
 ========================================================================
