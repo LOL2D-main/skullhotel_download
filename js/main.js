@@ -206,7 +206,7 @@ function initMediaShowcase() {
       if (counterText) counterText.textContent = `0/${totalScreenshots}`;
 
       if (userAction && trailerVideo && trailerVideo.paused) {
-        trailerVideo.play().catch(() => {});
+        trailerVideo.play().catch(() => { });
       }
     } else {
       // Switching to screenshot image
@@ -514,16 +514,38 @@ function initMediaShowcase() {
 // ===================================================================
 // 2. DOWNLOAD FLOW & INSTRUCTION MODAL
 // ===================================================================
+
+// CẤU HÌNH LINK TẢI GAME CHO SKULL HOTEL:
+// Dán link file ZIP của bạn vào biến url dưới đây:
+// - Khuyên dùng: Dùng GitHub Releases (tải lên file .zip lên đến 2GB miễn phí, link trực tiếp)
+// - Hoặc link Google Drive (để chế độ công khai bất kỳ ai có link đều xem được)
+// - Hoặc MediaFire, Mega, itch.io...
+const GAME_DOWNLOAD_CONFIG = {
+  url: "https://github.com/LOL2D-main/skullhotel_download/releases/download/skullhotel/SkullHotel.zip", // Thay bằng link GitHub Release hoặc Google Drive của bạn
+  fileName: "SkullHotel.zip",
+  fileSize: "968 MB",
+};
+
 function initDownloadFlow() {
   const downloadBtns = document.querySelectorAll(".btn-trigger-download");
   const modal = document.getElementById("downloadModal");
   const closeBtn = document.getElementById("closeDownloadModal");
   const retryBtn = document.getElementById("retryDownloadBtn");
+  const modalFileName = document.getElementById("modalDownloadFileName");
+  const modalFileDesc = document.getElementById("modalDownloadFileDesc");
+
+  // Đồng bộ tên và dung lượng trong popup tải
+  if (modalFileName && GAME_DOWNLOAD_CONFIG.fileName) {
+    modalFileName.textContent = GAME_DOWNLOAD_CONFIG.fileName;
+  }
+  if (modalFileDesc && GAME_DOWNLOAD_CONFIG.fileSize) {
+    modalFileDesc.textContent = `Dung lượng: ${GAME_DOWNLOAD_CONFIG.fileSize} • Windows 10/11 64-bit • Quá trình tải đang diễn ra...`;
+  }
 
   downloadBtns.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
-      triggerDirectExeDownload();
+      triggerGameDownload();
       if (modal) modal.classList.add("active");
     });
   });
@@ -540,19 +562,33 @@ function initDownloadFlow() {
 
   if (retryBtn) {
     retryBtn.addEventListener("click", () => {
-      triggerDirectExeDownload();
+      triggerGameDownload();
     });
   }
 }
 
-function triggerDirectExeDownload() {
-  const exePath = "SkullHotel.exe";
+function triggerGameDownload() {
+  const targetUrl = GAME_DOWNLOAD_CONFIG.url || "SkullHotel_v1.0.4.zip";
+  const isExternalUrl = targetUrl.startsWith("http://") || targetUrl.startsWith("https://");
+
   const downloadLink = document.createElement("a");
-  downloadLink.href = exePath;
-  downloadLink.download = "SkullHotel_v1.0.4.exe";
+  downloadLink.href = targetUrl;
+
+  if (isExternalUrl) {
+    downloadLink.target = "_blank";
+    downloadLink.rel = "noopener noreferrer";
+  } else {
+    downloadLink.download = GAME_DOWNLOAD_CONFIG.fileName || "SkullHotel_v1.0.4.zip";
+  }
+
   document.body.appendChild(downloadLink);
   downloadLink.click();
   document.body.removeChild(downloadLink);
+}
+
+// Giữ lại hàm cũ để đảm bảo tương thích
+function triggerDirectExeDownload() {
+  triggerGameDownload();
 }
 
 // ===================================================================
